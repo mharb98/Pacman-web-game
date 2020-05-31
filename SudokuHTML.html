@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="SudokuCSS.css">
+        <script type="text/javascript" src="Difficulty.js"></script>
+        <script type="text/javascript" src="SudokuGenerator.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Sudoku Game</h1>
+        </header>
+        <div class = "group">
+           <div class = "left">
+               <h3>Generate New Sudoku:</h3>
+               <button class = "Difficulty" id = "easy">Easy</button>
+               <br>
+               <br>
+               <button class = "Difficulty" id = "intermediate">Intermediate</button>
+               <br>
+               <br>
+               <button class = "Difficulty" id = "hard">Hard</button>
+               <br>
+               <br>
+               <button class = "Difficulty" id ="expert">Expert</button>
+               <br>
+               <br>
+           </div>
+           <div class = "middle">
+                   <table border = "2">
+                           <tbody id="table">
+                              
+                            </tbody>
+                        </table>
+            </div>
+            <div class = "right">
+                <p class = "Number" id = "1">1</p>
+                <p class = "Number" id = "2">2</p>
+                <p class = "Number" id = "3">3</p>
+                <p class = "Number" id = "4">4</p>
+                <p class = "Number" id = "5">5</p>
+                <p class = "Number" id = "6">6</p>
+                <p class = "Number" id = "7">7</p>
+                <p class = "Number" id = "8">8</p>
+                <p class = "Number" id = "9">9</p>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        let dummyList = [1,2,3,4,5,6,7,8,9];
+        let table = document.getElementById("table");
+        window.addEventListener('load', (event) => {
+            let sudoku = sudoku_board(dummyList);
+            generateSudoku(sudoku,"intermediate");
+            convert(sudoku);
+            for(let i=0;i<9;i++){
+                let row = `<tr>
+                               <td>${sudoku[i][0]}</td>
+                               <td>${sudoku[i][1]}</td>
+                               <td>${sudoku[i][2]}</td>
+                               <td>${sudoku[i][3]}</td>
+                               <td>${sudoku[i][4]}</td>
+                               <td>${sudoku[i][5]}</td>
+                               <td>${sudoku[i][6]}</td>
+                               <td>${sudoku[i][7]}</td>
+                               <td>${sudoku[i][8]}</td>
+                           </tr>`;
+                table.innerHTML += row;
+            }
+        });
+        let easy = document.getElementById("easy");
+        let intermediate = document.getElementById("intermediate");
+        let expert = document.getElementById("expert");
+        let hard = document.getElementById("hard");
+
+        let listb = [easy,intermediate,hard,expert];
+        for(let i=0;i<listb.length;i++){
+            listb[i].addEventListener('click',(event)=>{
+                let sudoku = sudoku_board(dummyList);
+                generateSudoku(sudoku,listb[i].innerText.toLowerCase());
+                console.log(listb[i].innerText.toLowerCase());
+                convert(sudoku);  
+                table.innerHTML = '';
+                for(let i=0;i<9;i++){
+                let row = `<tr>
+                               <td>${sudoku[i][0]}</td>
+                               <td>${sudoku[i][1]}</td>
+                               <td>${sudoku[i][2]}</td>
+                               <td>${sudoku[i][3]}</td>
+                               <td>${sudoku[i][4]}</td>
+                               <td>${sudoku[i][5]}</td>
+                               <td>${sudoku[i][6]}</td>
+                               <td>${sudoku[i][7]}</td>
+                               <td>${sudoku[i][8]}</td>
+                           </tr>`;
+                table.innerHTML += row;
+                }
+            });
+        }
+    </script>
+</html>
