@@ -34,14 +34,19 @@ function play(tdlist,numbers,colors,actual){
         numbers[i].addEventListener('click',(event)=>{
                 n = numbers[i].innerText;
                 if(colors[row][column]!="black"){
-                    activeCell.innerText = n;
-                    if(n==actual[row][column]){
-                        activeCell.style.color = "green";
-                        colors[row][column] = "green";
+                    if(n=="clear"){
+                        activeCell.innerText = "";
                     }
                     else{
-                        activeCell.style.color = "red";
-                        colors[row][column] = "red";
+                        activeCell.innerText = n;
+                        if(n==actual[row][column]){
+                            activeCell.style.color = "green";
+                             colors[row][column] = "green";
+                        }
+                        else{
+                            activeCell.style.color = "red";
+                            colors[row][column] = "red";
+                        }
                     }
                 }
         });
