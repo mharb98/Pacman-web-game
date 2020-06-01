@@ -26,11 +26,17 @@
                <br>
                <br>
            </div>
+           <div class = "newDiv">
+               <button class = "restart" id="restartButton">Restart</button>
+               <br>
+               <br>
+               <button class = "restart" id="clearButton">clear</button>
+           </div>
            <div class = "middle">
                    <table id = "myTable" border = "2">
                            <tbody id="table">
                               
-                            </tbody>
+                           </tbody>
                     </table>
             </div>
             <div class = "right">
@@ -51,31 +57,42 @@
         let numbers = document.getElementsByClassName("Number");
         let listb = [easy,intermediate,hard,expert];
         let dummyList = [1,2,3,4,5,6,7,8,9];
+        let restart = document.getElementById("restartButton");
+        let clear = document.getElementById("clearButton");
+        let sudoku,colors,actual,tdlist;
         window.addEventListener('load', (event) => 
         {
-            let sudoku = sudoku_board(dummyList);
-             let actual = getCopy(sudoku);
+            sudoku = sudoku_board(dummyList);
+            actual = getCopy(sudoku);
             generateSudoku(sudoku,"intermediate");
             convert(sudoku);
-            let colors = createColors(sudoku);
+            colors = createColors(sudoku);
             let ret = renderTable(sudoku);
             table.innerHTML += ret;
-            let tdlist = document.getElementsByTagName("td");
+            tdlist = document.getElementsByTagName("td");
             play(tdlist,numbers,colors,actual);
         });
         for(let i=0;i<listb.length;i++){
             listb[i].addEventListener('click',(event)=>{
-                let sudoku = sudoku_board(dummyList);
-                let actual = getCopy(sudoku);
+                sudoku = sudoku_board(dummyList);
+                actual = getCopy(sudoku);
                 generateSudoku(sudoku,listb[i].innerText.toLowerCase());
                 convert(sudoku);  
                 table.innerHTML = '';
                 let ret = renderTable(sudoku);
                 table.innerHTML += ret;
-                let tdlist = document.getElementsByTagName("td");
+                tdlist = document.getElementsByTagName("td");
                 colors = createColors(sudoku);
                 play(tdlist,numbers,colors,actual);
             });
         }
+        restart.addEventListener('click',(event)=>{
+                let ret = renderTable(sudoku);
+                table.innerHTML = '';
+                table.innerHTML += ret;
+                tdlist = document.getElementsByTagName("td");
+                 play(tdlist,numbers,colors,actual);
+        });
+
     </script>
 </html>
