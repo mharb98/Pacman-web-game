@@ -30,7 +30,16 @@
                <button class = "restart" id="restartButton">Restart</button>
                <br>
                <br>
-               <button class = "restart" id="clearButton">clear</button>
+               <button class = "restart" id="clearButton">Clear cell</button>
+               <br>
+               <br>
+               <button class = "restart" id="hintButton">Hints:3</button>
+               <br>
+               <br>
+               <button class = "restart" id="noteButton">Notes:Off</button>
+               <br>
+               <br>
+               <button class = "restart" id="viewSolution">ViewSolution</button>
            </div>
            <div class = "middle">
                    <table id = "myTable" border = "2">
@@ -59,9 +68,14 @@
         let dummyList = [1,2,3,4,5,6,7,8,9];
         let restart = document.getElementById("restartButton");
         let clear = document.getElementById("clearButton");
-        let sudoku,colors,actual,tdlist;
+        let hint = document.getElementById("hintButton");
+        let note = document.getElementById("noteButton");
+        let solution = document.getElementById("viewSolution");
+        let sudoku,colors,actual,tdlist,hints,notes,activeCell;
         window.addEventListener('load', (event) => 
         {
+            hints = 3;
+            notes = false;
             sudoku = sudoku_board(dummyList);
             actual = getCopy(sudoku);
             generateSudoku(sudoku,"intermediate");
@@ -74,6 +88,8 @@
         });
         for(let i=0;i<listb.length;i++){
             listb[i].addEventListener('click',(event)=>{
+                hints = 3;
+                notes = false;
                 sudoku = sudoku_board(dummyList);
                 actual = getCopy(sudoku);
                 generateSudoku(sudoku,listb[i].innerText.toLowerCase());
@@ -91,8 +107,29 @@
                 table.innerHTML = '';
                 table.innerHTML += ret;
                 tdlist = document.getElementsByTagName("td");
-                 play(tdlist,numbers,colors,actual);
+                play(tdlist,numbers,colors,actual);
         });
-
+        hint.addEventListener('click',(event)=>{
+            if(hints>0){
+                let arr = [];
+                for(let i=0;i<9;i++){
+                    for(let j=0;j<9;j++){
+                        if(sudoku[i][j]==""){
+                            arr.push(i*9+j);
+                        }
+                    }
+                }
+                let rand = Math.floor(Math.random()*arr.length-1);
+                tdlist[rand].innerText = actual[Math.floor(rand/9)][rand%9];
+                tdlist[rand].style.color = "violet";
+                hints--;
+                hint.innerText = "Hints:" + hints.toString();
+            }
+        });
+        solution.addEventListener('click',(event)=>{
+                let ret = renderTable(actual);
+                table.innerHTML = '';
+                table.innerHTML += ret;
+        });
     </script>
 </html>
