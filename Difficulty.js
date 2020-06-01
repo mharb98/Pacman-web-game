@@ -13,18 +13,22 @@ function getDifficulty(difficulty){
     }
 }
 
-function generateSudoku(list,difficulty){
-    let num = getDifficulty(difficulty);
-     let rand1,rand2;
-     for(let i=0;i<=num;i++){
-        rand1 = Math.floor(Math.random() * 9);
-        rand2 = Math.floor(Math.random() * 9);
-        list[rand1][rand2] = 0;
-     }
+function shuffle(array) {
+    let array2 =  array.sort(() => Math.random() - 0.5);
+    return array2;
 }
 
-function print(list){
-    for(let i=0;i<list.length;i++){
-        console.log(list[i]);
+function generateSudoku(list,difficulty){
+    let num = getDifficulty(difficulty);
+    let sd = [];
+    for(let i=0;i<81;i++){
+        sd[i]=i;
     }
+    sd = shuffle(sd);
+     let rand1,rand2;
+     for(let i=0;i<=num;i++){
+        rand1 = sd[i]%9;
+        rand2 = Math.floor(sd[i]/9);
+        list[rand1][rand2] = 0;
+     }
 }

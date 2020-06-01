@@ -144,3 +144,34 @@ function sudoku_board(list){
     shuffle_rows(list_trans);
     return list_trans;
 }
+
+function createColors(list){
+    let ret = [];
+    for(let i=0;i<9;i++){
+        ret.push([]);
+    }
+    for(let i=0;i<9;i++){
+        for(let j=0;j<9;j++){
+            if(list[i][j]!=""){
+                ret[i].push("black");
+            }
+            else{
+                ret[i].push("");
+            }
+        }
+    }
+    return ret;
+}
+
+function getCopy(list){
+    let list2 = [];
+    for(let i=0;i<9;i++){
+        list2.push([]);
+    }
+    for(let i=0;i<9;i++){
+        for(let j=0;j<9;j++){
+            list2[i].push(list[i][j]);
+        }
+    }
+    return list2;
+}
