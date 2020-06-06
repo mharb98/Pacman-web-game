@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="PackmanCSS.css">
+        <script type="text/javascript" src="PackmanGenerator.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Packman Game</h1>
+        </header>
+        <div class = "group">
+           <div class = "left">
+               <button class = "Button" id = "start">Start Game</button>
+               <br>
+               <br>
+               <button class = "Button" id = "new">New Game</button>
+               <br>
+               <br>
+               <button class = "Button" id = "pause">Pause Game</button>
+           </div>
+           <div class = "middle">
+                   <table id = "myTable">
+                           <tbody id="table">
+                              
+                           </tbody>
+                    </table>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        let newGame = document.getElementById("new");
+        let table = document.getElementById("myTable");
+        let start = document.getElementById("start");
+        let k,r,c;
+        window.addEventListener('load',(event)=>{
+           k = generatePackman();
+           r = 7;
+           c = 20; 
+           let row;
+           for(let i=0;i<15;i++){
+                row = "<tr>";
+                for(let j=0;j<41;j++){
+                    if(k[i][j]==1){
+                        row += `<td><img src="${"pictures\\coin.png"}" alt="Flowers"></td>`;
+                    }
+                    else if(k[i][j]==2){
+                        row += `<td><img src="${"pictures\\brick.png"}" alt="Flowers"></td>`;
+                    }
+                    else if(k[i][j]==3){
+                        row += `<td><img src="${"pictures\\pacman.png"}" alt="Flowers"></td>`;
+                    }
+                    else{
+                        row += `<td><img src="${"pictures\\ghost.png"}" alt="Flowers"></td>`;
+                    }
+                }
+                row += "</tr>"        
+                table.innerHTML += row;
+           }
+        });
+        newGame.addEventListener('click',(event)=>{
+            k = generatePackman(); 
+            for(let i=0;i<15;i++){
+                 row = "<tr>";
+                 for(let j=0;j<41;j++){
+                     if(k[i][j]==1){
+                         row += `<td><img src="${"pictures\\coin.png"}" alt="Flowers"></td>`;
+                     }
+                     else if(k[i][j]==2){
+                         row += `<td><img src="${"pictures\\brick.png"}" alt="Flowers"></td>`;
+                     }
+                     else if(k[i][j]==3){
+                         row += `<td><img src="${"pictures\\pacman.png"}" alt="Flowers"></td>`;
+                     }
+                     else{
+                         row += `<td><img src="${"pictures\\ghost.png"}" alt="Flowers"></td>`;
+                     }
+                 }
+                 row += "</tr>"        
+                 table.innerHTML += row;
+            }
+         });
+         start.addEventListener('click',(event)=>{
+               let list = document.getElementsByTagName("td");
+               for(let i = 0;i<15;i++){
+                   for(let j=0;j<41;j++){
+                       console.log(k[i][j]);
+                   }
+               }
+         });
+    </script>
+</html>
