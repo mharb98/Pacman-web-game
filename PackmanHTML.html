@@ -31,7 +31,7 @@
         let newGame = document.getElementById("new");
         let table = document.getElementById("myTable");
         let start = document.getElementById("start");
-        let k,r,c;
+        let k,k2,r,c;
         window.addEventListener('load',(event)=>{
            k = generatePackman();
            r = 7;
@@ -39,18 +39,18 @@
            let row;
            for(let i=0;i<15;i++){
                 row = "<tr>";
-                for(let j=0;j<41;j++){
+                for(let j=40;j>=0;j--){
                     if(k[i][j]==1){
-                        row += `<td><img src="${"pictures\\coin.png"}" alt="Flowers"></td>`;
+                        row += `<td><img src="${"pictures\\coin.png"}" alt="coin"></td>`;
                     }
                     else if(k[i][j]==2){
-                        row += `<td><img src="${"pictures\\brick.png"}" alt="Flowers"></td>`;
+                        row += `<td><img src="${"pictures\\brick.png"}" alt="brick"></td>`;
                     }
                     else if(k[i][j]==3){
-                        row += `<td><img src="${"pictures\\pacman.png"}" alt="Flowers"></td>`;
+                        row += `<td><img src="${"pictures\\pacman.png"}" alt="pacman"></td>`;
                     }
                     else{
-                        row += `<td><img src="${"pictures\\ghost.png"}" alt="Flowers"></td>`;
+                        row += `<td><img src="${"pictures\\ghost.png"}" alt="ghost"></td>`;
                     }
                 }
                 row += "</tr>"        
@@ -58,21 +58,24 @@
            }
         });
         newGame.addEventListener('click',(event)=>{
-            k = generatePackman(); 
+            table.innerHTML = '';
+            k = generatePackman();
+            r = 7;
+            c = 20; 
             for(let i=0;i<15;i++){
                  row = "<tr>";
                  for(let j=0;j<41;j++){
                      if(k[i][j]==1){
-                         row += `<td><img src="${"pictures\\coin.png"}" alt="Flowers"></td>`;
+                         row += `<td><img src="${"pictures\\coin.png"}" alt="coin"></td>`;
                      }
                      else if(k[i][j]==2){
-                         row += `<td><img src="${"pictures\\brick.png"}" alt="Flowers"></td>`;
+                         row += `<td><img src="${"pictures\\brick.png"}" alt="brick"></td>`;
                      }
                      else if(k[i][j]==3){
-                         row += `<td><img src="${"pictures\\pacman.png"}" alt="Flowers"></td>`;
+                         row += `<td><img src="${"pictures\\pacman.png"}" alt="pacman"></td>`;
                      }
                      else{
-                         row += `<td><img src="${"pictures\\ghost.png"}" alt="Flowers"></td>`;
+                         row += `<td><img src="${"pictures\\ghost.png"}" alt="ghost"></td>`;
                      }
                  }
                  row += "</tr>"        
@@ -81,11 +84,77 @@
          });
          start.addEventListener('click',(event)=>{
                let list = document.getElementsByTagName("td");
-               for(let i = 0;i<15;i++){
-                   for(let j=0;j<41;j++){
-                       console.log(k[i][j]);
-                   }
-               }
+               let dc,dr,dummy;
+               document.addEventListener("keydown",(event)=>{
+                    if(event.keyCode == 37){
+                        dc = c;
+                        c = c + 1;
+                        if(k[r][c]==4){
+                            alert("Game over");
+                        }
+                        else if(k[r][c]!=2){
+                            dummy = ((r+1)*41)-(c+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\pacman.png"}" alt="pacman"></td>`;
+                            dummy = ((r+1)*41)-(dc+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\bg.png"}" alt="bg"></td>`;
+                            k[r][c] = 5;
+                        }
+                        else{
+                            c=dc;
+                        }
+                    }
+                    else if(event.keyCode==38){
+                        dr = r;
+                        r = r - 1;
+                        if(k[r][c]==4){
+                            alert("Game over");
+                        }
+                        else if(k[r][c]!=2){
+                            dummy = ((r+1)*41)-(c+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\pacman.png"}" alt="pacman"></td>`; 
+                            dummy = ((dr+1)*41)-(c+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\bg.png"}" alt="bg"></td>`;
+                            k[r][c] = 5;
+                        }
+                        else{
+                            r = dr;
+                        }
+                    }
+                    else if(event.keyCode==39){
+                        dc = c;
+                        c = c - 1;
+                        if(k[r][c]==4){
+                            alert("Game over");
+                        }
+                        else if(k[r][c]!=2){
+                            dummy = ((r+1)*41)-(c+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\pacman.png"}" alt="pacman"></td>`;
+                            dummy = ((r+1)*41)-(dc+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\bg.png"}" alt="bg"></td>`;
+                            k[r][c] = 5;
+                        }
+                        else{
+                            c = dc;
+                        }
+                    }
+                    else if(event.keyCode==40){
+                        dr = r;
+                        r = r + 1;
+                        if(k[r][c]==4){
+                            alert("Game over");
+                        }
+                        else if(k[r][c]!=2){
+                            dummy = ((r+1)*41)-(c+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\pacman.png"}" alt="pacman"></td>`;  
+                            dummy = ((dr+1)*41)-(c+1);
+                            list[dummy].innerHTML = `<td><img src="${"pictures\\bg.png"}" alt="bg"></td>`; 
+                            k[r][c] = 5;
+                        }
+                        else{
+                            r = dr;
+                        }
+                    }
+               });
          });
     </script>
 </html>

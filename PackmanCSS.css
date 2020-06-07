@@ -40,7 +40,6 @@ h1{
     margin-left: 20px;
     margin-right: 80px;
     width:1000px;
-    background-color: white;
     float: left;
 }
 
@@ -48,13 +47,13 @@ table{
     width:1000px;
     height:700px;
     border-collapse: collapse;
-    background-color: #181818;
     border-collapse:collapse;
 }
 
 td{
     width: 25px;
     height: 35px;
+    background-color: #181818;
 }
 
 .Button{
