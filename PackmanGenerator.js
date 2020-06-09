@@ -57,7 +57,7 @@ function generatePackman(){
     editBorders(k);
     addWalls(k);
     k[7][20]=3;
-    k[1][3]=4;
-    k[1][15]=4;
+    k[1][1]=4;
+    k[1][39]=4;
     return k;
 }
